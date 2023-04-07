@@ -6,13 +6,9 @@ import * as React from 'react'
 function Board() {
   // 🐨 squares is the state for this component. Add useState for squares
   const [squares, setSquares] = React.useState(Array(9).fill(null))
-  console.log(squares)
-  const [nextValue, setNextValue] = React.useState(calculateNextValue(squares))
-  console.log(nextValue)
-  const [winner, setWinner] = React.useState(calculateWinner(squares))
-  const [status, setStatus] = React.useState(
-    calculateStatus(winner, squares, nextValue),
-  )
+  const nextValue = calculateNextValue(squares)
+  const winner = calculateWinner(squares)
+  const status = calculateStatus(winner, squares, nextValue)
 
   function selectSquare(square) {
     if (squares[square] || winner) {
@@ -20,14 +16,7 @@ function Board() {
     }
     var squaresCopy = [...squares]
     squaresCopy[square] = nextValue
-    const newNextValue = calculateNextValue(squaresCopy)
-    const newWinner = calculateWinner(squaresCopy)
-    const newStatus = calculateStatus(newWinner, squaresCopy, newNextValue)
-    // 🐨 set the squares to your copy
     setSquares(squaresCopy)
-    setWinner(newWinner)
-    setNextValue(newNextValue)
-    setStatus(newStatus)
   }
 
   function restart() {
